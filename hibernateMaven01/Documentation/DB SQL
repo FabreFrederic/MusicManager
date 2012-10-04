@@ -1,0 +1,53 @@
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `client`
+--
+
+CREATE TABLE `client` (
+  `Client_Id` int(5) NOT NULL AUTO_INCREMENT,
+  `Client_Nom` varchar(50) NOT NULL,
+  `Client_Prenom` varchar(50) NOT NULL,
+  PRIMARY KEY (`Client_Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `guitare`
+--
+
+CREATE TABLE `guitare` (
+  `Guitare_Id` int(5) NOT NULL AUTO_INCREMENT,
+  `Guitare_ModeleId` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Guitare_Id`),
+  UNIQUE KEY `Guitare_Marque` (`Guitare_ModeleId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `marque`
+--
+
+CREATE TABLE `marque` (
+  `Marque_Id` int(5) NOT NULL AUTO_INCREMENT,
+  `Marque_Nom` varchar(50) NOT NULL,
+  PRIMARY KEY (`Marque_Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `modele`
+--
+
+CREATE TABLE `modele` (
+  `Modele_Id` int(5) NOT NULL AUTO_INCREMENT,
+  `Modele_Nom` varchar(50) NOT NULL,
+  `Modele_PrixCatalogue` int(5) NOT NULL,
+  `Modele_MarqueId` int(5) DEFAULT NULL,
+  `Modele_ClientId` int(5) DEFAULT NULL,
+  PRIMARY KEY (`Modele_Id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+

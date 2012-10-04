@@ -1,0 +1,11 @@
+Injection par modificateur ou par constructeur :
+
+Spring par la pratique - page 38 
+Dans le cadre de Spring, l’injection par modificateur est généralement préférée. L’injection par constructeur
+peut devenir malcommode si les dépendances sont nombreuses et si certaines sont optionnelles. L’injection
+par modificateur laisse quant à elle toute la souplesse nécessaire pour les dépendances optionnelles.
+Elle permet aussi un changement à chaud des dépendances, par exemple dans le cas d’une gestion de
+l’objet via JMX. L’injection par constructeur permet de définir un contrat fort : un objet doit être initialisé
+avec toutes ses dépendances ou ne pas exister. Elle est généralement préférée (à juste titre) par les puristes
+de la programmation orientée objet. Il n’y a donc pas de réponse unique à la question, même si l’injection
+par modificateur est la plus utilisée avec Spring
