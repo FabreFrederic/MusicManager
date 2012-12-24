@@ -62,9 +62,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://192.168.1.10:5432/musicManagerDb" />
+		<property name="url" value="jdbc:postgresql://192.168.1.80:5432/musicManagerDb" />
 		<property name="username" value="fredpostgres" />
-		<property name="password" value="miliefred06" />
+		<property name="password" value="bienvenue" />
 	</bean>
 	
 	<context:annotation-config />

@@ -23,5 +23,7 @@ public class GenericHibernateDaoTest  { //extends AbstractTransactionalJUnit4Spr
 //		IGenericDao<Album, Serializable> albumDao = new GenericHibernateDao<Album, Serializable>();
 //		
 //		Assert.assertEquals(3, albumDao.findAll().size());
+	    // TODO : A supprimer 
+	    System.out.println("test");
 	}
 }
