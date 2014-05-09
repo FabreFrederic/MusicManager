@@ -12,7 +12,10 @@
 	<url>http://www.fabrefrederic.fr/maven.index.jsp</url>
 
 	<properties>
+		<my.build.directory>target</my.build.directory>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+
 		<hibernate-core-version>4.3.5.Final</hibernate-core-version>
 		<spring-version>4.0.3.RELEASE</spring-version>
 		<!-- Tous les jar de slf4j doivent avoir la même version -->
@@ -21,7 +24,7 @@
 		<postgresql-version>9.1-901.jdbc4</postgresql-version>
 	</properties>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>central</id>
 			<name>Maven Repository Switchboard</name>
@@ -45,25 +48,33 @@
 				<updatePolicy>never</updatePolicy>
 			</releases>
 		</pluginRepository>
-	</pluginRepositories>
+	</pluginRepositories> -->
 
-	<!-- ###### Configuration de déploiement ###### -->
-	<distributionManagement>
-		<repository>
-			<id>local_repo_distrib</id>
-			<name>Repository local, voir settings.xml dans le répertoire de Maven</name>
-			<url>file:///${mvnLocalRepositoryPath}</url>
-		</repository>
-		<snapshotRepository>
-			<id>local_snap_distrib</id>
-			<name>Local distribution Snapshot Repo</name>
-			<url>file:///${mvnLocalRepositoryPath}</url>
-		</snapshotRepository>
-		<!-- Définit l'URL de déploiement du site web hébergeant les rapports maven -->
-		<site>
-			<id>siteURL</id>
-			<url>file:///${siteDeployPath}</url>
-		</site>
-	</distributionManagement>
 
+
+	<build>
+		<directory>${my.build.directory}</directory>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>1.0-beta-2</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<!--<showWarnings>true</showWarnings> -->
+						<!--<showDeprecation>true</showDeprecation> -->
+						<detail>true</detail>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
