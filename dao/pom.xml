@@ -33,7 +33,7 @@
 			<version>2.2.4</version>
 			<scope>test</scope>
 		</dependency>
-<!-- 
+<!--
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -60,16 +60,21 @@
 	                <groupId>org.slf4j</groupId>
 	                <artifactId>slf4j-api</artifactId>
 	            </exclusion>
-	        </exclusions>			
+	        </exclusions>
 		</dependency>
-            	
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.18</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<!-- Spring -->
 	    <dependency>
 	        <groupId>org.springframework</groupId>
@@ -93,12 +98,12 @@
 	            </exclusion>
 	        </exclusions>
 	    </dependency>
- 		<dependency>  
-           <groupId>org.springframework</groupId>  
-           <artifactId>spring-tx</artifactId>  
-           <version>${spring-version}</version>  
-       </dependency>  
-       
+ 		<dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-tx</artifactId>
+           <version>${spring-version}</version>
+       </dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -115,18 +120,7 @@
 		    <artifactId>c3p0</artifactId>
 		    <version>0.9.1.2</version>
 		</dependency>
-		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>5.1.13</version>
-		</dependency>
 
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.1-901.jdbc4</version>
-		</dependency>
-            
 		<!-- Because this is a web app, we also have a dependency on the servlet
 			api. -->
 		<dependency>

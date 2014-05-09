@@ -13,12 +13,12 @@
 
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-		<!-- Gestion des versions des dépendances -->
 		<hibernate-core-version>4.3.5.Final</hibernate-core-version>
 		<spring-version>4.0.3.RELEASE</spring-version>
 		<!-- Tous les jar de slf4j doivent avoir la même version -->
 		<!-- Voir http://www.slf4j.org/codes.html#version_mismatch -->
 		<slf4j-version>1.5.8</slf4j-version>
+		<postgresql-version>9.1-901.jdbc4</postgresql-version>
 	</properties>
 
 	<repositories>

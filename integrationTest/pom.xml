@@ -6,16 +6,25 @@
 		<artifactId>maven</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.fabrefrederic</groupId>
+	<groupId>com.fabrefrederic.integrationTest</groupId>
 	<artifactId>integrationTest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>integrationTest</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<profiles>
 		<profile>
 			<id>database-creation</id>
 			<properties>
-				<sql.scripts.dir.postgreSQL>${project.basedir}/src/test/resources/sql</sql.scripts.dir.postgreSQL>
+				<sql.scripts.dir>${project.basedir}/src/test/resources/sql</sql.scripts.dir>
+				<configFile>${project.basedir}/src/test/resources/configFile.properties</configFile>
 			</properties>
 			<build>
 				<plugins>
@@ -31,7 +40,7 @@
 								</goals>
 								<configuration>
 									<files>
-										<file>${user.integration.test.configFile.postgreSQL}</file>
+										<file>${configFile}</file>
 									</files>
 								</configuration>
 							</execution>
@@ -45,44 +54,39 @@
 							<dependency>
 								<groupId>postgresql</groupId>
 								<artifactId>postgresql</artifactId>
-								<version>${postgresql.version}</version>
-							</dependency>
-							<dependency>
-								<groupId>com.akio.depext</groupId>
-								<artifactId>ojdbc14</artifactId>
-								<version>${oracle.version}</version>
+								<version>${postgresql-version}</version>
 							</dependency>
 						</dependencies>
 						<executions>
 							<execution>
-								<id>init-test-data-aic-postgreSQL</id>
+								<id>pre-integration-test-sql</id>
 								<phase>pre-integration-test</phase>
 								<goals>
 									<goal>execute</goal>
 								</goals>
 								<configuration>
-									<driver>${user.jdbc.driverClassName.postgreSQL}</driver>
-									<url>${user.jdbc.url.postgreSQL}</url>
-									<username>${user.jdbc.username.postgreSQL}</username>
-									<password>${user.jdbc.password.postgreSQL}</password>
+									<driver>${jdbc.driverClassName}</driver>
+									<url>${jdbc.url}</url>
+									<username>${jdbc.username}</username>
+									<password>${jdbc.password}</password>
 									<srcFiles>
-										<srcFile>${sql.scripts.dir.postgreSQL}/user-delete-amcform-test-data.sql</srcFile>
+										<srcFile>${sql.scripts.dir}/population.sql</srcFile>
 									</srcFiles>
 								</configuration>
 							</execution>
 							<execution>
-								<id>delete-previous-test-data-aic-postgreSQL</id>
+								<id>post-integration-test-sql</id>
 								<phase>post-integration-test</phase>
 								<goals>
 									<goal>execute</goal>
 								</goals>
 								<configuration>
-									<driver>${user.jdbc.driverClassName.postgreSQL}</driver>
-									<url>${user.jdbc.url.postgreSQL}</url>
-									<username>${user.jdbc.username.postgreSQL}</username>
-									<password>${user.jdbc.password.postgreSQL}</password>
+									<driver>${jdbc.driverClassName}</driver>
+									<url>${jdbc.url}</url>
+									<username>${jdbc.username}</username>
+									<password>${jdbc.password}</password>
 									<srcFiles>
-										<srcFile>${sql.scripts.dir.postgreSQL}/user-delete-amcform-test-data.sql</srcFile>
+										<srcFile>${sql.scripts.dir}/detele.sql</srcFile>
 									</srcFiles>
 								</configuration>
 							</execution>
@@ -100,14 +104,10 @@
 									<goal>verify</goal>
 								</goals>
 								<configuration>
-									<reportsDirectory>${project.build.directory}/postgreSQL/surefire-reports</reportsDirectory>
+									<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
 									<argLine>-XX:MaxPermSize=256m</argLine>
 									<systemPropertyVariables>
-										<user.integration.test.properties>${user.integration.test.configFile.postgreSQL}</user.integration.test.properties>
-										<AKIO_HOME>${IT_AKIO_HOME_postgreSQL}</AKIO_HOME>
-										<AKIO_DATA>${IT_AKIO_DATA_postgreSQL}</AKIO_DATA>
-										<AKIO_APPLICATION_NAME>user-it</AKIO_APPLICATION_NAME>
-										<spring.profiles.active>${IT_spring_profile_postgreSQL}</spring.profiles.active>
+										<!-- <spring.profiles.active>${IT_spring_profile_postgreSQL}</spring.profiles.active> -->
 									</systemPropertyVariables>
 								</configuration>
 							</execution>

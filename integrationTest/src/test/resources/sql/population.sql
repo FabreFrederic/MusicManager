@@ -1,0 +1,1 @@
+insert into marque (marque_nom) values ('Gibson');
