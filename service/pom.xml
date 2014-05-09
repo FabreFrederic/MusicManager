@@ -61,11 +61,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-asm</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
@@ -102,7 +97,7 @@
 			<version>5.1.13</version>
 		</dependency>
 
-		<!-- Because this is a web app, we also have a dependency on the servlet 
+		<!-- Because this is a web app, we also have a dependency on the servlet
 			api. -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -115,7 +110,7 @@
 			<artifactId>metier</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>

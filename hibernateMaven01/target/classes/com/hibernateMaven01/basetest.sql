@@ -26,18 +26,20 @@ create table Guitare (
     primary key (Guitare_Id)
 );
 
-ALTER TABLE client  
-ALTER COLUMN client_id  
-SET DEFAULT nextval('musicmanager_id_seq'); 
+CREATE SEQUENCE musicmanager_id_seq;
 
-ALTER TABLE guitare  
-ALTER COLUMN guitare_id  
-SET DEFAULT nextval('musicmanager_id_seq'); 
+ALTER TABLE client
+ALTER COLUMN client_id
+SET DEFAULT nextval('musicmanager_id_seq');
 
-ALTER TABLE modele  
-ALTER COLUMN modele_id  
-SET DEFAULT nextval('musicmanager_id_seq'); 
+ALTER TABLE guitare
+ALTER COLUMN guitare_id
+SET DEFAULT nextval('musicmanager_id_seq');
 
-ALTER TABLE marque  
-ALTER COLUMN marque_id  
-SET DEFAULT nextval('musicmanager_id_seq'); 
+ALTER TABLE modele
+ALTER COLUMN modele_id
+SET DEFAULT nextval('musicmanager_id_seq');
+
+ALTER TABLE marque
+ALTER COLUMN marque_id
+SET DEFAULT nextval('musicmanager_id_seq');
