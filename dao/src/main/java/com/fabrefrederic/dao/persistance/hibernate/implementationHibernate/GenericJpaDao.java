@@ -6,21 +6,26 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.criterion.Criterion;
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fabrefrederic.dao.persistance.interfaces.IGenericDao;
+
 /**
- * 
- * @author Frederic Fabre
+ * Generic JPA DAO
  *
+ * @author Frederic Fabre
  * @param <T>
  */
 @Repository
-public class GenericJpaDao< T extends Serializable > {
-	/** Classe à persister */
+public class GenericJpaDao<T extends Serializable> implements IGenericDao<T>{
+	/** logger */
+	private static final Logger LOGGER = Logger.getLogger(GenericJpaDao.class);
+	/** Classe to persiste */
 	protected Class< T > entityBeanType;
 
-	/** */
 	@PersistenceContext
 	protected EntityManager entityManager;
 
@@ -32,87 +37,58 @@ public class GenericJpaDao< T extends Serializable > {
 		this.entityBeanType = persistentClass;
 	}
 
-	/**
-	 * Constructor
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public GenericJpaDao() {
-		//		this.entityBeanType = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
-	}
-
-
-	/**
-	 * 
-	 * @param classToSet
-	 */
-	public void setClazz( final Class< T > classToSet ){
+	@Override
+	public void setClazz(final Class< T > classToSet){
 		this.entityBeanType = classToSet;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@Transactional
-	public T findOne( final Long id ){
-		return this.entityManager.find( this.entityBeanType, id );
+	@Override
+	public Class<T> getEntityBeanType() {
+		return entityBeanType;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
+	@Override
+	@Transactional
+	public T findById(final Long id) {
+		return this.entityManager.find(this.entityBeanType, id);
+	}
+
+	@Override
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List< T > findAll(){
+	public List< T > findAll() {
 		return this.entityManager.createQuery("from " + this.entityBeanType.getName()).getResultList();
 	}
 
-	/**
-	 * 
-	 * @param entity
-	 */
+	@Override
 	@Transactional
-	public void save( final T entity ) {
+	public void save(final T entity) {
 		try {
-			this.entityManager.persist( entity );
+			this.entityManager.persist(entity);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			this.LOGGER.error(e);
 		}
 	}
 
-	/**
-	 * 
-	 * @param entity
-	 */
-	public void update( final T entity ){
-		this.entityManager.merge( entity );
+	@Override
+	public void update(final T entity) {
+		this.entityManager.merge(entity);
 	}
 
-	/**
-	 * 
-	 * @param entity
-	 */
-	public void delete( final T entity ){
-		this.entityManager.remove( entity );
+	@Override
+	public void delete(final T entity) {
+		this.entityManager.remove(entity);
 	}
 
-	/**
-	 * 
-	 * @param entityId
-	 */
-	public void deleteById( final Long entityId ){
-		final T entity = this.findOne( entityId );
-		this.delete( entity );
+	@Override
+	public void deleteById(final Long entityId) {
+		final T entity = this.findById(entityId);
+		this.delete(entity);
 	}
 
-	/**
-	 * @return the entityBeanType
-	 */
-	public Class<T> getEntityBeanType() {
-		return entityBeanType;
+	@Override
+	public void flush() {
+		this.entityManager.flush();
 	}
 
 	/**

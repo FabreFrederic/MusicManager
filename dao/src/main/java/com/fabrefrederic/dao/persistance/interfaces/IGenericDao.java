@@ -9,60 +9,73 @@ import java.util.List;
 import org.hibernate.criterion.Criterion;
 
 /**
- * Interface DAO g�n�rique
- * @author frederic.fabre
+ * Generic interface DAO
  *
- * @param <T> Entit�
- * @param <ID> identifiant entit�
+ * @author frederic.fabre
+ * @param <T> Entity
+ * @param <ID> Entity id
  */
-public interface IGenericDao<T, ID extends Serializable> {
+public interface IGenericDao<T> extends Serializable {
 
 	/**
-	 * Supprime toutes les entit�s de la session
+	 * Gets the class type to manage
+	 *
+	 * @return
 	 */
-	public void clear();
+	Class<T> getEntityBeanType();
 
 	/**
-	 * Suppression d'une entit� en base
-	 * @param entity : entit� � supprimer
+	 * Sets the class type to manage
+	 *
+	 * @param classToSet
 	 */
-	public void delete(T entity);
+	void setClazz(final Class< T > classToSet);
 
 	/**
-	 * Supression d'une entit� en base
-	 * @param entity entit� � supprimer
-	 * @param id : id de l'entit� � supprimer
+	 * Search for an entity by its id
+	 *
+	 * @param id
+	 * @return
 	 */
-	public void delete(T entity, ID id);
+	T findById(final Long id);
 
 	/**
-	 * Renvoie une liste d'entit� du type "persistentClass" correspondant aux crit�res (Criterion) pass�s en parametre
-	 * @param criterion : liste de criteres de recherche
+	 * Search for all the entities
+	 *
+	 * @return
 	 */
-	public List<T> find(Criterion... criterion);
+	public List< T > findAll();
 
 	/**
-	 * Cherche une entit� par l'ID
-	 * @param id : id de l'entit� � retourner
-	 * @return Retourne : l'entit� trouv�e
+	 * Save an entity
+	 *
+	 * @param entity
 	 */
-	public T find(ID id);
+	void save(final T entity);
 
-    /**
-     * Search for the complet list
-     * 
-     * @return List entities
-     */
-	public List<T> findAll();
-		
+	/**
+	 * Update an entity
+	 *
+	 * @param entity
+	 */
+	void update(final T entity);
+
+	/**
+	 * Deletes an entity
+	 *
+	 * @param entity
+	 */
+	void delete(final T entity);
+
+	/**
+	 * Deletes an entity by its id
+	 *
+	 * @param entityId
+	 */
+	void deleteById(final Long entityId);
+
 	/**
 	 * Flush
 	 */
-	public void flush();
-
-	/**
-	 * Sauvegarde ou met � jour un objet
-	 * @param entity : objet � sauvegarder ou � mettre � jour
-	 */
-	public void saveOrUpdate(T entity);
+	void flush();
 }

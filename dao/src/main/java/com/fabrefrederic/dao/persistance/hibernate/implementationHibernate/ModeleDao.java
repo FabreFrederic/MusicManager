@@ -11,4 +11,13 @@ import com.fabrefrederic.metier.implementationTest.Modele;
  */
 public class ModeleDao extends GenericJpaDao<Modele> {
 
+	/**
+	 * Constructor
+	 *
+	 * @param persistentClass
+	 */
+	public ModeleDao(Class<Modele> persistentClass) {
+		super(persistentClass);
+	}
+
 }
