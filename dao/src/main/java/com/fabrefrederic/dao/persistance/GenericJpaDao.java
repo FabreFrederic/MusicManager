@@ -1,4 +1,4 @@
-package com.fabrefrederic.dao.persistance.hibernate.implementationHibernate;
+package com.fabrefrederic.dao.persistance;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,12 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.criterion.Criterion;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fabrefrederic.dao.persistance.interfaces.IGenericDao;
+import com.fabrefrederic.dao.persistance.interfaces.GenericDao;
 
 /**
  * Generic JPA DAO
@@ -20,7 +19,9 @@ import com.fabrefrederic.dao.persistance.interfaces.IGenericDao;
  * @param <T>
  */
 @Repository
-public class GenericJpaDao<T extends Serializable> implements IGenericDao<T>{
+public class GenericJpaDao<T extends Serializable> implements GenericDao<T> {
+	/** UID */
+	private static final long serialVersionUID = 1L;
 	/** logger */
 	private static final Logger LOGGER = Logger.getLogger(GenericJpaDao.class);
 	/** Classe to persiste */
@@ -28,6 +29,11 @@ public class GenericJpaDao<T extends Serializable> implements IGenericDao<T>{
 
 	@PersistenceContext
 	protected EntityManager entityManager;
+
+	/**
+	 * Default constructor
+	 */
+	public GenericJpaDao() {}
 
 	/**
 	 * Constructor
@@ -66,7 +72,7 @@ public class GenericJpaDao<T extends Serializable> implements IGenericDao<T>{
 		try {
 			this.entityManager.persist(entity);
 		} catch (Exception e) {
-			this.LOGGER.error(e);
+			GenericJpaDao.LOGGER.error(e);
 		}
 	}
 

@@ -6,8 +6,6 @@ package com.fabrefrederic.dao.persistance.interfaces;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.criterion.Criterion;
-
 /**
  * Generic interface DAO
  *
@@ -15,7 +13,7 @@ import org.hibernate.criterion.Criterion;
  * @param <T> Entity
  * @param <ID> Entity id
  */
-public interface IGenericDao<T> extends Serializable {
+public interface GenericDao<T> extends Serializable {
 
 	/**
 	 * Gets the class type to manage
@@ -44,7 +42,7 @@ public interface IGenericDao<T> extends Serializable {
 	 *
 	 * @return
 	 */
-	public List< T > findAll();
+	List< T > findAll();
 
 	/**
 	 * Save an entity

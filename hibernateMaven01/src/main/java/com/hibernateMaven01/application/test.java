@@ -14,7 +14,7 @@ import com.fabrefrederic.service.interfaces.IModeleService;
 
 
 /**
- * 
+ *
  * Classe de test
  * @author frederic.fabre
  *
@@ -27,13 +27,13 @@ public class test {
 	 */
 	public static void main(String[] args) throws Exception {
 		// Contexts m�tiers
-		ApplicationContext contextMetier = 
+		ApplicationContext contextMetier =
 				new ClassPathXmlApplicationContext("classpath:com/fabrefrederic/metier/springTest/applicationContext-Annotation.xml");
 		// ApplicationContext contextMetier = new ClassPathXmlApplicationContext("classpath:com/fabrefrederic/metier/springTest/applicationContext-InjectionManuelle.xml");
 		//ApplicationContext contextMetier = new ClassPathXmlApplicationContext("classpath:com/fabrefrederic/metier/springTest/applicationContext-detectionAutomatiquePackage.xml");
 
 		// Contexts services
-		ApplicationContext contextService = 
+		ApplicationContext contextService =
 				new ClassPathXmlApplicationContext("classpath:com/fabrefrederic/service/springTest/applicationContext-Service.xml");
 
 		Marque marque = (Marque)contextMetier.getBean("marque");
@@ -44,14 +44,14 @@ public class test {
 		//		List list = new ArrayList(Arrays.asList(tableau));
 		//		IModeleService modeleService = (ModeleService)contextService.getBean("modeleService");
 		//
-		
+
 		//Statistics statistics = HibernateUtil.getSessionfactory().getStatistics();
 
 		marque.setNom("Gibson");
+		modele.setMarque(marque);
 		modele.setNom("Les paul");
 		modele.setPrixCatalogue((double) 2000);
-		modele.setMarque(marque);
-		guitare.setModele(modele);
+//		guitare.setModele(modele);
 
 		Client client1 = modele.getClient();
 		client1.setPrenom("prenomclient2");
@@ -59,14 +59,14 @@ public class test {
 		modele.setClient(client1);
 
 		IModeleService modeleService = (IModeleService)contextService.getBean("modeleService");
-		
+
 		try {
 			modeleService.save(modele);
 		}
 		catch (Exception e) {
 			System.out.println(e);
 		}
-				
+
 		//statistics.logSummary();
 	}
 }

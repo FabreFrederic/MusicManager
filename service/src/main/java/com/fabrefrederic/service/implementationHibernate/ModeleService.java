@@ -6,14 +6,14 @@ package com.fabrefrederic.service.implementationHibernate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fabrefrederic.dao.persistance.hibernate.implementationHibernate.GenericJpaDao;
-import com.fabrefrederic.dao.persistance.hibernate.implementationHibernate.ModeleDao;
+import com.fabrefrederic.dao.persistance.interfaces.ModeleDao;
 import com.fabrefrederic.metier.implementationTest.Marque;
 import com.fabrefrederic.metier.implementationTest.Modele;
 import com.fabrefrederic.service.interfaces.IModeleService;
@@ -22,27 +22,22 @@ import com.fabrefrederic.service.interfaces.IModeleService;
  * @author frederic.fabre
  *
  */
+@Service
+@Component
 public class ModeleService implements IModeleService, ApplicationEventPublisherAware {
-	/** */
-	private GenericJpaDao<Modele> modeleDao;
+	@Autowired
+	private ModeleDao modeleDao;
 
-	/** Publisher d'�v�nement*/
+	/** Event publisher */
 	private ApplicationEventPublisher applicationEventPublisher;
 
-	/**
-	 * Constructeur
-	 */
-	public ModeleService() {
-
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see com.hibernateMaven01.service.interfaces.IModeleService#
 	 * recupererListeModelesParMarque(com.hibernateMaven01.metier.Marque)
  	 *
-	 * Retourne la liste des mod�les de la marque choisie
+	 * Retourne la liste des modeles de la marque choisie
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Modele> findListeModelesByMarque(Marque marque) {
@@ -66,13 +61,13 @@ public class ModeleService implements IModeleService, ApplicationEventPublisherA
 //			((GenericHibernateDao<Modele, Serializable>)this.modeleDao).getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction();
 //		transaction.begin();
 //		this.modeleDao.saveOrUpdate(modele);
-//		// Cr�ation de l'�v�nement
+//		// Creation de l'evenement
 //		ModeleSaveOrUpdateEvent modeleSaveOrUpdateEvent = new ModeleSaveOrUpdateEvent(this, modele);
-//		// Publication de l'�v�nement
+//		// Publication de l'evenement
 //		this.applicationEventPublisher.publishEvent(modeleSaveOrUpdateEvent);
 //		transaction.commit();
 		this.modeleDao.save(modele);
-		
+
 	}
 
 	/*
@@ -80,7 +75,7 @@ public class ModeleService implements IModeleService, ApplicationEventPublisherA
 	 * @see org.springframework.context.ApplicationEventPublisherAware#setApplicationEventPublisher(org.springframework.context.ApplicationEventPublisher)
 	 */
 	/**
-	 * L'interface ApplicationEventPublisherAware d�finit un accesseur pour avoir acc�s � l'�metteur d'�v�nements
+	 * L'interface ApplicationEventPublisherAware d�finit un accesseur pour avoir acces a l'emetteur d'evenements
 	 */
 	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
 		this.applicationEventPublisher = applicationEventPublisher;
@@ -89,7 +84,7 @@ public class ModeleService implements IModeleService, ApplicationEventPublisherA
 	/**
 	 * @param modeleDao the modeleDao to set
 	 */
-	public void setModeleDao(GenericJpaDao<Modele> modeleDao) {
+	public void setModeleDao(ModeleDao modeleDao) {
 		this.modeleDao = modeleDao;
 	}
 

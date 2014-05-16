@@ -1,1 +1,1 @@
-insert into marque (marque_nom) values ('Gibson');
+insert into Marque(Marque_Nom) values ('Gibson');

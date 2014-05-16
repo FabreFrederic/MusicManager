@@ -9,18 +9,17 @@
 
 	<!-- Here we specify where to find our property file -->
 	<context:property-placeholder
-		location="classpath:com/fabrefrederic/dao/persistance/hibernate/model.properties" />
+		location="classpath:com/fabrefrederic/dao/persistance/model.properties" />
 
 	<!-- Déclaration de l'entity manager -->
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-
 <!--
 	Usually, JPA defines a persistence unit through the META-INF/persistence.xml file.
 	Starting with Spring 3.1, this XML file is no longer necessary – the LocalContainerEntityManagerFactoryBean
 	now supports a ‘packagesToScan’ property where the packages to scan for @Entity classes can be specified.
- -->
+-->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="persistenceUnitName" value="jpaTest" />
@@ -58,15 +57,12 @@
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/musicmanager" />
-		<property name="username" value="postgres" />
-		<property name="password" value="postgres" />
+		<property name="driverClassName" value="${datasource.driverClassName}" />
+		<property name="url" value="${datasource.postgres.url}" />
+		<property name="username" value="${datasource.postgres.username}" />
+		<property name="password" value="${datasource.postgres.password}" />
 	</bean>
 
-	<context:annotation-config />
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-
-	<bean id="modeleDao" class="com.fabrefrederic.dao.persistance.hibernate.implementationHibernate.ModeleDao" />
+	<context:component-scan base-package="com.fabrefrederic.dao.persistance" />
 
 </beans>

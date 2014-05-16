@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component;
  */
 @Entity
 @Table(name = "Client")
-// On peut indiquer � Spring le nom de l'instance du bean
-// Par d�faut, c'est le nom de la classe avec une minuscule
+// On peut indiquer a Spring le nom de l'instance du bean
+// Par defaut, c'est le nom de la classe avec une minuscule
 @Component("client")
 public class Client implements Serializable {
 	/** serialVersionUID */

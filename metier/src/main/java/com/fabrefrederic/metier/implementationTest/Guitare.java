@@ -39,7 +39,7 @@ public class Guitare implements Serializable {
 
 	/** */
 	final static Logger logger = LoggerFactory.getLogger(Guitare.class);
-	
+
 	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="musicmanager_id_seq")
@@ -57,22 +57,22 @@ public class Guitare implements Serializable {
 			private Modele modele;
 
 	/**
-	 * M�thode appel�e par Spring une fois le Bean cr�� et
-	 * ses d�pendances inject�es et non juste apr�s sa cr�ation
+	 * Methode appelee par Spring une fois le Bean cree et
+	 * ses dependances injectees et non juste apres sa creation
 	 * Page 76
 	 */
 	@PostConstruct
 	public void init() {
-		logger.debug("Classe guitare @PostConstruct - Methode init : cr�ation du bean");
+		logger.debug("Classe guitare @PostConstruct - Methode init : creation du bean");
 	}
 
 	/**
-	 * M�thode appel�e par Spring une fois le Bean d�truit
+	 * Methode appelee par Spring une fois le Bean detruit
 	 * Page 76
 	 */
 	@PreDestroy
 	public void close() {
-		logger.debug("Classe guitare @PreDestroy - Methode close : bean d�truit");
+		logger.debug("Classe guitare @PreDestroy - Methode close : bean detruit");
 	}
 
 	/**

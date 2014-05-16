@@ -16,17 +16,17 @@
 	</logger>
 
 	<logger name="org.hibernate.SQL" additivity="false">
-		<level value="off" />
+		<level value="trace" />
 		<appender-ref ref="console" />
 	</logger>
 
 	<logger name="org.hibernate.type" additivity="false">
-		<level value="off" />
+		<level value="trace" />
 		<appender-ref ref="console" />
 	</logger>
 
 	<logger name="org.hibernate" additivity="false">
-		<level value="off" />
+		<level value="debug" />
 		<appender-ref ref="console" />
 	</logger>
 
