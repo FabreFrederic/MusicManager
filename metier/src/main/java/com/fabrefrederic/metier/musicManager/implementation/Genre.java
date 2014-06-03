@@ -12,52 +12,51 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author frederic.fabre
- *
  */
 @Entity
 @Table(name = "genre")
 @Component
 public class Genre implements Serializable {
 
-        /** serialVersionUID */
-        private static final long serialVersionUID = -4993209356763794549L;
+    /** serialVersionUID */
+    private static final long serialVersionUID = -4993209356763794549L;
 
-        /** Id */
-        @Id
-        @GeneratedValue
-        @Column(name = "genre_id")
-        private Integer id;
-        
-        /** Name */
-        @Column(name = "genre_name")
-        private String name;
+    /** Id */
+    @Id
+    @GeneratedValue
+    @Column(name = "genre_id")
+    private Integer id;
 
-        /**
-         * @return the id
-         */
-        public Integer getId() {
-                return id;
-        }
+    /** Name */
+    @Column(name = "genre_name")
+    private String name;
 
-        /**
-         * @return the name
-         */
-        public String getName() {
-                return name;
-        }
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-        /**
-         * @param id the id to set
-         */
-        public void setId(Integer id) {
-                this.id = id;
-        }
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-        /**
-         * @param name the name to set
-         */
-        public void setName(String name) {
-                this.name = name;
-        }
-                
+    /**
+     * @param id the id to set
+     */
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
 }
