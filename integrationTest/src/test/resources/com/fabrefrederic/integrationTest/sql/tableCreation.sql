@@ -26,8 +26,6 @@ create table Guitare (
     primary key (Guitare_Id)
 );
 
-CREATE SEQUENCE musicmanager_id_seq;
-
 ALTER TABLE Client
 ALTER COLUMN Client_Id
 SET DEFAULT nextval('musicmanager_id_seq');

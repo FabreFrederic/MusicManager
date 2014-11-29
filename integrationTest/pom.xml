@@ -10,6 +10,12 @@
 	<artifactId>integrationTest</artifactId>
 	<name>integrationTest</name>
 
+	<properties>
+		<docker.maven.plugin.rhuss.version>0.10.4</docker.maven.plugin.rhuss.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -23,8 +29,8 @@
 		<profile>
 			<id>database-creation</id>
 			<properties>
-				<sql.scripts.dir>${project.basedir}/src/test/resources/sql</sql.scripts.dir>
-				<configFile>${project.basedir}/src/test/resources/configFile.properties</configFile>
+				<sql.scripts.dir>${project.basedir}/src/test/resources/com/fabrefrederic/integrationTest/sql</sql.scripts.dir>
+				<configFile>${project.basedir}/src/test/resources/com/fabrefrederic/integrationTest/configFile.properties</configFile>
 			</properties>
 			<build>
 				<plugins>
@@ -46,6 +52,52 @@
 							</execution>
 						</executions>
 					</plugin>
+
+					<plugin>
+						<groupId>org.jolokia</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker.maven.plugin.rhuss.version}</version>
+						<configuration>
+							<images>
+								<image>
+									<alias>db</alias>
+									<name>fabrefrederic/postgrestest1</name>
+									<run>
+										<!-- Assign dynamically mapped ports to maven variables (which 
+											can be reused in integration tests) -->
+										<ports>
+											<port>jdbc.url.port:5432</port>
+										</ports>
+										<wait>
+											<log>database system is ready to accept connections</log>
+											<time>5000</time>
+										</wait>
+									</run>
+								</image>
+							</images>
+							<dockerHost>tcp://0.0.0.0:4243</dockerHost>
+						</configuration>
+
+						<!-- Hooking into the lifecycle -->
+						<executions>
+							<execution>
+								<id>start-docker-container</id>
+								<phase>process-test-resources</phase>
+								<goals>
+									<goal>build</goal>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-docker-container</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>sql-maven-plugin</artifactId>
@@ -58,6 +110,23 @@
 							</dependency>
 						</dependencies>
 						<executions>
+
+							<execution>
+								<id>create-db</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<driver>${jdbc.driverClassName}</driver>
+									<url>${jdbc.url}:${jdbc.url.port}</url>
+									<username>${jdbc.username}</username>
+									<password>${jdbc.password}</password>
+									<autocommit>true</autocommit>
+									<sqlCommand>create database ${jdbc.url.database}</sqlCommand>
+								</configuration>
+							</execution>
+
 							<execution>
 								<id>pre-integration-test-sql</id>
 								<phase>pre-integration-test</phase>
@@ -66,35 +135,23 @@
 								</goals>
 								<configuration>
 									<driver>${jdbc.driverClassName}</driver>
-									<url>${jdbc.url}</url>
+									<url>${jdbc.url}:${jdbc.url.port}/${jdbc.url.database}</url>
 									<username>${jdbc.username}</username>
 									<password>${jdbc.password}</password>
 									<srcFiles>
+										<srcFile>${sql.scripts.dir}/databaseCreation.sql</srcFile>
+										<srcFile>${sql.scripts.dir}/tableCreation.sql</srcFile>
 										<srcFile>${sql.scripts.dir}/population.sql</srcFile>
 									</srcFiles>
 								</configuration>
 							</execution>
-							<execution>
-								<id>post-integration-test-sql</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-								<configuration>
-									<driver>${jdbc.driverClassName}</driver>
-									<url>${jdbc.url}</url>
-									<username>${jdbc.username}</username>
-									<password>${jdbc.password}</password>
-									<srcFiles>
-										<srcFile>${sql.scripts.dir}/detele.sql</srcFile>
-									</srcFiles>
-								</configuration>
-							</execution>
+
 						</executions>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.17</version>
 						<executions>
 							<execution>
 								<id>integration-tests-postgreSQL</id>
@@ -107,7 +164,6 @@
 									<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
 									<argLine>-XX:MaxPermSize=256m</argLine>
 									<systemPropertyVariables>
-										<!-- <spring.profiles.active>${IT_spring_profile_postgreSQL}</spring.profiles.active> -->
 									</systemPropertyVariables>
 								</configuration>
 							</execution>
