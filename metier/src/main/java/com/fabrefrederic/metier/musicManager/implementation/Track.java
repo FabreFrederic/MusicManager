@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.fabrefrederic.metier.musicManager.implementation;
 
 import java.io.Serializable;
@@ -15,70 +12,70 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author frederic.fabre
- *
+ * 
  */
 @Entity
 @Table(name = "track")
 @Component
 public class Track implements Serializable {
-        
-        /** serialVersionUID */
-        private static final long serialVersionUID = -17295649203002122L;
 
-        /** Id */
-        @Id
-        @GeneratedValue
-        @Column(name = "track_id")
-        private Integer id; 
-        
-        /** Name */
-        @Column(name = "track_name")
-        private String name;
+    /** serialVersionUID */
+    private static final long serialVersionUID = -17295649203002122L;
 
-        /** Genre */
-        @Column(name = "track_genre")
-        private String genre;
-          
-        /**
-         * @return the id
-         */
-        public Integer getId() {
-                return id;
-        }
+    /** Id */
+    @Id
+    @GeneratedValue
+    @Column(name = "track_id")
+    private Integer id;
 
-        /**
-         * @return the name
-         */
-        public String getName() {
-                return name;
-        }
+    /** Name */
+    @Column(name = "track_name")
+    private String name;
 
-        /**
-         * @param id the id to set
-         */
-        public void setId(Integer id) {
-                this.id = id;
-        }
+    /** Genre */
+    @Column(name = "track_genre")
+    private String genre;
 
-        /**
-         * @param name the name to set
-         */
-        public void setName(String name) {
-                this.name = name;
-        }
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-        /**
-         * @return the genre
-         */
-        public String getGenre() {
-                return genre;
-        }
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-        /**
-         * @param genre the genre to set
-         */
-        public void setGenre(String genre) {
-                this.genre = genre;
-        }
+    /**
+     * @param id the id to set
+     */
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the genre
+     */
+    public String getGenre() {
+        return genre;
+    }
+
+    /**
+     * @param genre the genre to set
+     */
+    public void setGenre(final String genre) {
+        this.genre = genre;
+    }
 
 }
