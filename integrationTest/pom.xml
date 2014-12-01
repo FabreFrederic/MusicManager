@@ -23,11 +23,17 @@
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>
 		<profile>
-			<id>database-creation</id>
+			<id>postgres-it</id>
 			<properties>
 				<sql.scripts.dir>${project.basedir}/src/test/resources/com/fabrefrederic/integrationTest/sql</sql.scripts.dir>
 				<configFile>${project.basedir}/src/test/resources/com/fabrefrederic/integrationTest/configFile.properties</configFile>
